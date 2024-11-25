@@ -1,86 +1,186 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projeto londres</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Special+Elite&display=swap"
-        rel="stylesheet">
-</head>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Special+Elite&display=swap"
+      rel="stylesheet" />
+  </head>
 
-<body>
+  <body>
     <nav></nav>
     <main>
-        <section class="containerSort">
-            <div class="box1">
-                <p id="wordContainer"></p>
-                <img src="./assets/maquina-de-escrever.png" alt="imagem de uma maquina de escrever">
+      <section class="containerSort">
+        <div class="box1">
+          <p id="wordContainer"></p>
+          <img
+            src="./assets/maquina-de-escrever.png"
+            alt="imagem de uma maquina de escrever" />
 
-                <button id="sortWord">sortear</button>
+          <button id="sortWord">sortear</button>
+        </div>
+        <div class="box2">
+          <p class="title">gênero</p>
+          <p id="genderContainer" class="containerGender"></p>
+          <p class="title">subgênero</p>
+          <p id="subContainer" class="containerGender"></p>
+          <button id="sortButton">sortear</button>
+        </div>
+        <div class="box3">
+          <div class="boxText">
+            <p id="genderDescription"></p>
+            <p id="subGenderDescription"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="containerText">
+        <div class="areaText">
+          <input type="text" id="inputTitle"/>
+
+          <div class="textAreaContainer">
+            <div contenteditable="true" id="editor"></div>
+            
+            <div class="menu">
+              <button id="boldBtn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-bold">
+                  <path
+                    d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8" />
+                </svg>
+              </button >
+              <button id="italicBtn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-italic">
+                  <line x1="19" x2="10" y1="4" y2="4" />
+                  <line x1="14" x2="5" y1="20" y2="20" />
+                  <line x1="15" x2="9" y1="4" y2="20" />
+                </svg>
+              </button>
+              <button id="underlineBtn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-underline">
+                  <path d="M6 4v6a6 6 0 0 0 12 0V4" />
+                  <line x1="4" x2="20" y1="20" y2="20" />
+                </svg>
+              </button>
+              <button class="color" style="background-color: #000000;"></button>
+              <button class="color" style="background-color: #729382;"></button>
+              <button class="color" style="background-color: #BFD8D2;"></button>
+              <button class="color" style="background-color: #EC7853;"></button>
+              <button class="color" style="background-color: #EFA34B;"></button>
+              <button class="color" style="background-color: #F9B497;"></button>
+              <button class="color" style="background-color: #EBD6B7;"></button>
+              <button class="color" style="background-color: #808080;"></button>
+              <button class="color" style="background-color: #ffc0cb;"></button>
+              <button class="color" style="background-color: #ffa500;"></button>
+              <button class="color" style="background-color: #0000ff;"></button>
+              <button class="color" style="background-color: #e8d483;"></button>
+              <input type="color" id="picker">
+              <button id="clear">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-trash">
+                  <path d="M3 6h18" />
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                </svg>
+              </button>
+              <button id="saveButton">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-save">
+                  <path
+                    d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" />
+                  <path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7" />
+                  <path d="M7 3v4a1 1 0 0 0 1 1h7" />
+                </svg>
+              </button>
             </div>
-            <div class="box2">
-                <p class="title">gênero</p>
-                <p id="genderContainer" class="containerGender"></p>
-                <p class="title">subgênero</p>
-                <p id="subContainer" class="containerGender"></p>
-                <button id="sortButton">sortear</button>
+          </div>
+        </div>
+        <aside>
+          <div class="userContainer">
+            <div class="circle"></div>
+            <div class="bottom">
+              <div>
+                <p>Nível</p>
+              </div>
+              <div class="bar">
+                <div class="barContent" id="percent"></div>
+              </div>
             </div>
-            <div class="box3">
-                <div class="boxText">
-                    <p id="genderDescription">
-                        
-                    </p>
-                    <p id="subGenderDescription">
-                       
-                    </p>
-                </div>
-            </div>
-        </section>
+          </div>
 
-        <section class="containerText">
-            <div class="areaText">
-                <input type="text">
-                <textarea></textarea>
-            </div>
-            <aside>
-                <div class="userContainer">
-                    <div class="circle"></div>
-                    <div class="bottom"></div>
-                </div>
+          <div class="bookContainer">
+            <img src="./assets/livro.png" alt="" />
+            <p class="phr">
+              “Era o que nos contavam. O medo atravessou o tempo e fez parte de
+              nossa história desde sempre.” <br />
+              ― Itamar Vieira Junior, Torto Arado
+            </p>
+            <p class="tag">romance</p>
+          </div>
+        </aside>
+      </section>
 
-                <div>
-                    <img src="" alt="">
-                    <p></p>
-                    <p></p>
-                </div>
-            </aside>
-        </section>
-
-        <section>
-            <h2>Textos recentes</h2>
-            <div id="containerTexts">
-                <div class="containerText">
-                    <h3>title</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt culpa animi vero quisquam
-                        architecto, assumenda ab sint doloremque fugit vel, modi aperiam, deleniti quaerat quo in
-                        dolorum sunt pariatur illo.</p>
-
-                    <div>
-                        <p>ontem</p>
-                        <svg>
-
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </section>
+      <section class="containerTexts" id="containerTextsId">
+        <h2>Textos recentes</h2>
+        <div id="textList">
+        </div>
+      </section>
+      <div id="bg">
     </main>
-</body>
-<script src="script.js"></script>
-
+  </body>
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </html>
