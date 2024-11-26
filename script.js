@@ -850,6 +850,7 @@ function saveData() {
   renderTexts();
   document.getElementById("inputTitle").value = "";
   document.getElementById("editor").innerHTML = "";
+  RenderNivel();
 }
 
 document.getElementById("saveButton").addEventListener("click", saveData);
@@ -872,7 +873,7 @@ document.getElementById("clear").addEventListener("click", () => {
 
 const colorButtons = document.getElementsByClassName("color");
 Array.from(colorButtons).forEach(button => {
-  button.addEventListener("click", function ()  {
+  button.addEventListener("click", function () {
     const color = this.style.backgroundColor;
     document.execCommand("foreColor", false, color);
   });
@@ -897,12 +898,12 @@ function renderTexts() {
   if (!texts.length) {
     section.style.display = "none";
   } else {
-    section.style.display = "block"; 
+    section.style.display = "block";
   }
 
   const textList = document.getElementById("textList");
 
-  textList.innerHTML = ""; 
+  textList.innerHTML = "";
 
   texts.forEach((text, index) => {
     const containerText = document.createElement("div");
@@ -930,7 +931,11 @@ function renderTexts() {
       <div class="bottom">
         <p>${text.date}</p>
         <div class="setFavorite">        
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="${text.favorite ? "#ffe3c1" : "none"}" stroke="${text.favorite ? "#ffe3c1" : "currentColor"}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" data-index="${index}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="${
+            text.favorite ? "#ffe3c1" : "none"
+          }" stroke="${
+      text.favorite ? "#ffe3c1" : "currentColor"
+    }" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" data-index="${index}">
             <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
           </svg>
         </div>
@@ -939,43 +944,48 @@ function renderTexts() {
 
     textList.appendChild(containerText);
 
-    
     const starIcon = containerText.querySelector(".lucide-star");
     starIcon.addEventListener("click", function () {
       toggleFavorite(index);
     });
 
-
     const menuButton = containerText.querySelector(".lucide-ellipsis");
     const menu = containerText.querySelector(".menu");
 
     menuButton.addEventListener("click", function (event) {
-      menu.style.display = (menu.style.display === "none" || menu.style.display === "") ? "block" : "none";
-      event.stopPropagation(); 
+      menu.style.display =
+        menu.style.display === "none" || menu.style.display === ""
+          ? "block"
+          : "none";
+      event.stopPropagation();
     });
 
-   
-    document.addEventListener("click", function(event) {
+    document.addEventListener("click", function (event) {
       if (!menu.contains(event.target) && !menuButton.contains(event.target)) {
         menu.style.display = "none";
       }
     });
 
+    containerText
+      .querySelector(".editButton")
+      .addEventListener("click", function () {
+        editText(index);
+        menu.style.display = "none";
+      });
 
-    containerText.querySelector(".editButton").addEventListener("click", function() {
-      editText(index)
-      menu.style.display = "none"; 
-    });
-    
-    containerText.querySelector(".saveButton").addEventListener("click", function() {
-      downloadPDF(index)
-      menu.style.display = "none";  
-    });
-    
-    containerText.querySelector(".deleteButton").addEventListener("click", function() {
-      deleteText(index);
-      menu.style.display = "none";  
-    });
+    containerText
+      .querySelector(".saveButton")
+      .addEventListener("click", function () {
+        downloadPDF(index);
+        menu.style.display = "none";
+      });
+
+    containerText
+      .querySelector(".deleteButton")
+      .addEventListener("click", function () {
+        deleteText(index);
+        menu.style.display = "none";
+      });
   });
 }
 
@@ -996,9 +1006,10 @@ function deleteText(index) {
 
   texts.splice(index, 1);
 
-  localStorage.setItem('texts', JSON.stringify(texts));
+  localStorage.setItem("texts", JSON.stringify(texts));
 
   renderTexts();
+  RenderNivel();
 }
 
 function editText(index) {
@@ -1010,25 +1021,24 @@ function editText(index) {
 
   texts.splice(index, 1);
 
-  localStorage.setItem('texts', JSON.stringify(texts));
+  localStorage.setItem("texts", JSON.stringify(texts));
 
   renderTexts();
 }
 
-
 function downloadPDF(index) {
   const storedData = localStorage.getItem("texts");
   const texts = storedData ? JSON.parse(storedData) : [];
-  const text = texts[index]; 
- 
-  if (!text) return; 
-  
+  const text = texts[index];
+
+  if (!text) return;
+
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  const title = text.title.replace(/<\/?[^>]+(>|$)/g, "\n"); 
-  const content = text.content.replace(/<\/?[^>]+(>|$)/g, "\n");  
-  const maxWidth = 180; 
+  const title = text.title.replace(/<\/?[^>]+(>|$)/g, "\n");
+  const content = text.content.replace(/<\/?[^>]+(>|$)/g, "\n");
+  const maxWidth = 180;
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
@@ -1037,7 +1047,7 @@ function downloadPDF(index) {
 
   const titleHeigth = doc.getTextDimensions(title, { maxWidth: maxWidth }).h;
 
-  let yPosition = titleHeigth + 14;  
+  let yPosition = titleHeigth + 14;
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(12);
@@ -1046,26 +1056,84 @@ function downloadPDF(index) {
 
   function addTextToPDF(lines, yPosition) {
     for (let i = 0; i < lines.length; i++) {
-     
       if (yPosition > 270) {
-        doc.addPage();  
-        yPosition = 10; 
+        doc.addPage();
+        yPosition = 10;
       }
 
-     
       doc.text(lines[i], 10, yPosition);
-      yPosition += 6; 
+      yPosition += 6;
     }
-    return yPosition; 
+    return yPosition;
   }
 
-  
   yPosition = addTextToPDF(lines, yPosition);
 
- 
   doc.save(`${text.title.slice(0, 20)}_Salvo.pdf`);
 }
 
-
-
 window.onload = renderTexts;
+
+const niveis = [
+  {
+    name: "sem nível",
+    iconPath: "",
+    maxQuantity: 10
+  },
+  {
+    name: "Estilete de madeira",
+    iconPath: "./assets/estilete.jpg",
+    maxQuantity: 20
+  },
+  {
+    name: "Pena de ganso",
+    iconPath: "./assets/pena-escura.jpg",
+    maxQuantity: 30
+  },
+  {
+    name: "Pena de cisne",
+    iconPath: "./assets/pena.jpg",
+    maxQuantity: 40
+  },
+  {
+    name: "Pincel",
+    iconPath: "./assets/pincel.jpg",
+    maxQuantity: 50
+  },
+  {
+    name: "Lápis",
+    iconPath: "./assets/lapis.jpg",
+    maxQuantity: 60
+  },
+  {
+    name: "Caneta tinteiro",
+    iconPath: "./assets/caneta-tinteiro.jpg",
+    maxQuantity: 70
+  },
+  {
+    name: "Caneta esferográfica",
+    iconPath: "./assets/caneta.jpg",
+    maxQuantity: 100
+  }
+];
+
+function RenderNivel() {
+  const storedData = localStorage.getItem("texts");
+  const texts = storedData ? JSON.parse(storedData) : [];
+  const textsQuantity = texts.length;
+  const progressBar = document.getElementById("percent");
+  const icon = document.getElementById("imgCircle");
+
+  const nivelAtual = niveis.find(item => textsQuantity <= item.maxQuantity) || niveis[niveis.length - 1];
+
+  const percentAtual = Math.min((textsQuantity * 100) / nivelAtual.maxQuantity, 100);
+
+  if (progressBar) {
+    progressBar.style.width = `${percentAtual}%`;
+  }
+
+  if(icon) {
+    icon.style.backgroundImage = `url("${nivelAtual.iconPath}")`
+  }
+}
+
