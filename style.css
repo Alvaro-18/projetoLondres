@@ -13,9 +13,14 @@
 nav {
   width: 100%;
   background-color: var(--pink-500);
-  height: 80px;
   border-radius: 0 0 12px 12px;
   margin-bottom: 32px;
+
+
+  & img {
+    width: 220px;
+    border-radius: 0 0 12px 12px;
+  }
 }
 
 main {
@@ -472,7 +477,7 @@ aside .bookContainer {
         font-size: 14px;
       }
 
-      &.menu button:hover {
+      & .menu button:hover {
         background-color: #f0f0f0;
       }
     }
@@ -499,6 +504,12 @@ aside .bookContainer {
       overflow: hidden;
       text-overflow: ellipsis;
       max-height: 330px;
+    }
+
+    & .containerGen {
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
+      font-size: 12px;
     }
 
     & .bottom {

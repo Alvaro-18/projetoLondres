@@ -98,6 +98,9 @@ const generosLiterarios = [
   }
 ];
 
+let generoSorteado = "";
+let subgeneroSorteado = "";
+
 function sortearGenero() {
   const generoAleatorio =
     generosLiterarios[Math.floor(Math.random() * generosLiterarios.length)];
@@ -107,6 +110,8 @@ function sortearGenero() {
       Math.floor(Math.random() * generoAleatorio.subgender.length)
     ];
 
+  generoSorteado = generoAleatorio.gender;
+  subgeneroSorteado = subgeneroAleatorio.gender;
   document.getElementById("genderContainer").textContent =
     generoAleatorio.gender;
   document.getElementById("subContainer").textContent =
@@ -831,6 +836,9 @@ document.getElementById("sortWord").addEventListener("click", sortearPalavra);
 function saveData() {
   const title = document.getElementById("inputTitle").value || "Frase";
   const content = document.getElementById("editor").innerHTML;
+  const gender = document.getElementById("genero").value || generoSorteado;
+  const subgender =
+    document.getElementById("subgenero").value || subgeneroSorteado;
 
   if (!content.trim()) return;
 
@@ -841,6 +849,8 @@ function saveData() {
     title: title,
     content: content,
     favorite: false,
+    gender: gender,
+    subgender: subgender,
     date: new Date().toLocaleDateString()
   };
 
@@ -850,6 +860,8 @@ function saveData() {
   renderTexts();
   document.getElementById("inputTitle").value = "";
   document.getElementById("editor").innerHTML = "";
+  document.getElementById("genero").value = "";
+  document.getElementById("subgenero").value = "";
   RenderNivel();
 }
 
@@ -926,6 +938,8 @@ function renderTexts() {
         </div>
         <h3>${text.title}</h3>
         <div class="content">${text.content}</div>
+        <p class="containerGen">Genêro: ${text.gender}</p>
+        <p class="containerGen">Subgenêro: ${text.subgender}</p>
       </div>
 
       <div class="bottom">
@@ -1018,6 +1032,8 @@ function editText(index) {
 
   document.getElementById("inputTitle").value = texts[index].title;
   document.getElementById("editor").innerHTML = texts[index].content;
+  document.getElementById("genero").value = texts[index].gender;
+  document.getElementById("subgenero").value = texts[index].subgender;
 
   texts.splice(index, 1);
 
@@ -1038,6 +1054,8 @@ function downloadPDF(index) {
 
   const title = text.title.replace(/<\/?[^>]+(>|$)/g, "\n");
   const content = text.content.replace(/<\/?[^>]+(>|$)/g, "\n");
+  const gender = text.gender;
+  const subgender = text.subgender;
   const maxWidth = 180;
 
   doc.setFont("helvetica", "bold");
@@ -1045,12 +1063,14 @@ function downloadPDF(index) {
 
   doc.text(title, 10, 10, { maxWidth: maxWidth });
 
-  const titleHeigth = doc.getTextDimensions(title, { maxWidth: maxWidth }).h;
-
-  let yPosition = titleHeigth + 14;
+  const titleHeight = doc.getTextDimensions(title, { maxWidth: maxWidth }).h;
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(12);
+  doc.text(`Gênero: ${gender}`, 10, titleHeight + 14);
+  doc.text(`Subgênero: ${subgender}`, 10, titleHeight + 22);
+
+  let yPosition = titleHeight + 30;
 
   const lines = doc.splitTextToSize(content, maxWidth);
 
@@ -1124,16 +1144,20 @@ function RenderNivel() {
   const progressBar = document.getElementById("percent");
   const icon = document.getElementById("imgCircle");
 
-  const nivelAtual = niveis.find(item => textsQuantity <= item.maxQuantity) || niveis[niveis.length - 1];
+  const nivelAtual =
+    niveis.find(item => textsQuantity <= item.maxQuantity) ||
+    niveis[niveis.length - 1];
 
-  const percentAtual = Math.min((textsQuantity * 100) / nivelAtual.maxQuantity, 100);
+  const percentAtual = Math.min(
+    (textsQuantity * 100) / nivelAtual.maxQuantity,
+    100
+  );
 
   if (progressBar) {
     progressBar.style.width = `${percentAtual}%`;
   }
 
-  if(icon) {
-    icon.style.backgroundImage = `url("${nivelAtual.iconPath}")`
+  if (icon) {
+    icon.style.backgroundImage = `url("${nivelAtual.iconPath}")`;
   }
 }
-
