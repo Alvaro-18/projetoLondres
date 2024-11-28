@@ -1096,43 +1096,43 @@ window.onload = renderTexts;
 
 const niveis = [
   {
-    name: "sem nível",
+    name: "Sem nível",
     iconPath: "",
     maxQuantity: 10
   },
   {
     name: "Estilete de madeira",
-    iconPath: "./assets/estilete.jpg",
+    iconPath: "./assets/estilete.PNG",
     maxQuantity: 20
   },
   {
     name: "Pena de ganso",
-    iconPath: "./assets/pena-escura.jpg",
+    iconPath: "./assets/pena-escura.PNG",
     maxQuantity: 30
   },
   {
     name: "Pena de cisne",
-    iconPath: "./assets/pena.jpg",
+    iconPath: "./assets/pena.PNG",
     maxQuantity: 40
   },
   {
     name: "Pincel",
-    iconPath: "./assets/pincel.jpg",
+    iconPath: "./assets/pincel.PNG",
     maxQuantity: 50
   },
   {
     name: "Lápis",
-    iconPath: "./assets/lapis.jpg",
+    iconPath: "./assets/lapis.PNG",
     maxQuantity: 60
   },
   {
     name: "Caneta tinteiro",
-    iconPath: "./assets/caneta-tinteiro.jpg",
+    iconPath: "./assets/caneta-tinteiro.PNG",
     maxQuantity: 70
   },
   {
     name: "Caneta esferográfica",
-    iconPath: "./assets/caneta.jpg",
+    iconPath: "./assets/caneta.PNG",
     maxQuantity: 100
   }
 ];
@@ -1141,8 +1141,8 @@ function RenderNivel() {
   const storedData = localStorage.getItem("texts");
   const texts = storedData ? JSON.parse(storedData) : [];
   const textsQuantity = texts.length;
-  const progressBar = document.getElementById("percent");
-  const icon = document.getElementById("imgCircle");
+  const progressBar = document.querySelector(".percent");
+  const container = document.getElementById("containerGeneric");
 
   const nivelAtual =
     niveis.find(item => textsQuantity <= item.maxQuantity) ||
@@ -1153,11 +1153,35 @@ function RenderNivel() {
     100
   );
 
+  if (nivelAtual.name !== "Sem nível") {
+    container.innerHTML = `
+      <div class="container">
+        <p id="nivelName">${nivelAtual.name}</p>
+        <div class="percentContainer">
+          <div class="percent" style="width: ${percentAtual}%"></div> 
+        </div>
+      </div>
+      <img src="${nivelAtual.iconPath}" alt="Imagem que identifica o nível ${nivelAtual.name}" id="icon">
+    `;
+  } else {
+    container.innerHTML = `
+      <div class="container">
+        <p id="nivelName">${nivelAtual.name}</p>
+        <div class="percentContainer">
+          <div class="percent" style="width: ${percentAtual}%"></div> <!-- Largura dinâmica da barra -->
+        </div>
+      </div>
+    `;
+  }
+
   if (progressBar) {
     progressBar.style.width = `${percentAtual}%`;
   }
 
-  if (icon) {
-    icon.style.backgroundImage = `url("${nivelAtual.iconPath}")`;
-  }
+  const name = document.getElementById("nivelName");
+  const icon = document.getElementById("icon");
+
+  if (name.offsetWidth >= 196) icon.style.marginLeft = "12%";
 }
+
+RenderNivel();

@@ -15,10 +15,11 @@ nav {
   background-color: var(--pink-500);
   border-radius: 0 0 12px 12px;
   margin-bottom: 32px;
-
+  height: 80px;
 
   & img {
-    width: 220px;
+    margin-top: 12px;
+    width: 240px;
     border-radius: 0 0 12px 12px;
   }
 }
@@ -315,61 +316,63 @@ main {
 
 aside .userContainer {
   width: 260px;
-  height: 200px;
-  background-color: #fc9586;
+  height: 180px;
+  background-color: #DFE4D7;
   border-radius: 12px;
-  display: flex;
-  justify-content: center;
-}
 
-aside .userContainer .circle {
-  margin-top: 16px;
-  position: absolute;
-  width: 96px;
-  height: 96px;
-  background-position: center;
-  background-size: 100%;
-  border-radius: 50px;
-  background-color: #fff;
-}
-
-aside .userContainer .bottom {
-  background-color: #cdd5c1;
-  margin-top: 65px;
-  height: 68%;
-  width: 100%;
-  border-radius: 0 0 12px 12px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin-inline: auto;
-  align-items: center;
-
-  & div {
-    width: 220px;
+  & .top {
+    border-radius: 12px 12px 0 0;
+    height: 62px;
+    display: flex;
+    align-items: center;
+    padding-left: 12px;
+    background-color: #fc9586;
   }
 
   & p {
+    font-size: 20px;
+    font-weight: 600;
     font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    margin-bottom: 3px;
   }
 
-  & .bar {
-    border-radius: 50px;
-    width: 220px;
-    height: 12px;
-    background-color: #fff;
+  & img {
+    position: absolute;
+    margin-left: 10%;
+    top: 618px;
+    height: 260px;
   }
 
-  & .bar .barContent {
-    border-radius: 50px;
-    width: 0%;
-    height: 100%;
-    background-color: #febd56;
+  & .bottom {
+    display: flex;
+    flex-direction: row;
+
+    & .container {
+      height: 118px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      padding-left: 12px;
+
+      & .percentContainer {
+        width: 160px;
+        height: 14px;
+        background-color: #fff;
+        border-radius: 50px;
+  
+        & .percent {
+          border-radius: 50px;
+          height: 100%;
+          background-color: #FEBD56;
+        }
+      }
+    }
+
+
   }
 }
+
+
 
 aside .bookContainer {
   margin-top: 20px;
