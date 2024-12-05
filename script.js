@@ -1097,7 +1097,7 @@ window.onload = renderTexts;
 const niveis = [
   {
     name: "Sem nível",
-    iconPath: "",
+    iconPath: "./assets/none.png",
     maxQuantity: 10
   },
   {
@@ -1153,7 +1153,7 @@ function RenderNivel() {
     100
   );
 
-  if (nivelAtual.name !== "Sem nível") {
+
     container.innerHTML = `
       <div class="container">
         <p id="nivelName">${nivelAtual.name}</p>
@@ -1163,16 +1163,8 @@ function RenderNivel() {
       </div>
       <img src="${nivelAtual.iconPath}" alt="Imagem que identifica o nível ${nivelAtual.name}" id="icon">
     `;
-  } else {
-    container.innerHTML = `
-      <div class="container">
-        <p id="nivelName">${nivelAtual.name}</p>
-        <div class="percentContainer">
-          <div class="percent" style="width: ${percentAtual}%"></div> <!-- Largura dinâmica da barra -->
-        </div>
-      </div>
-    `;
-  }
+
+    
 
   if (progressBar) {
     progressBar.style.width = `${percentAtual}%`;
